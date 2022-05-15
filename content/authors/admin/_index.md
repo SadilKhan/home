@@ -3,16 +3,16 @@ bio:
   matter.
 education:
   courses:
-  # - course: PhD in 3D Computer Vision
+  # - course: Ph.D in 3D Computer Vision
   #   institution: University of Luxembourg
   #   year: 2022 - 2025
-  - course: MSc in Machine Learning and Data Mining
+  - course: M.Sc in Machine Learning and Data Mining
     institution: University Jean Monnet , France
     year: 2020 - 2022
-  - course: Master 1 in Data Science
+  - course: M.Sc (M1) in Data Science
     institution: Chennai Mathematical Institute, India
     year: 2019 -2020
-  - course: BSc in Mathematics
+  - course: B.Sc in Mathematics
     institution: Ramakrishna Mission Residential College, India
     year: 2016 - 2019
 email: "mdsadilkhan99@gmail.com"
