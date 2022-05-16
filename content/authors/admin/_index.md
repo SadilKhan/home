@@ -1,6 +1,5 @@
 ---
 bio:
-  matter.
 education:
   courses:
   # - course: Ph.D in 3D Computer Vision
