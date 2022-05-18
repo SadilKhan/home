@@ -7,7 +7,7 @@ widget: experience
 headless: true
 
 # Order that this section appears on the page.
-weight: 40
+weight: 20
 
 title: Experience
 subtitle:
@@ -36,7 +36,7 @@ experience:
   - title: Research Intern
     company: Hubert Curien Laboratory
     company_url: 'https://laboratoirehubertcurien.univ-st-etienne.fr/en/index.html'
-    company_logo: org-x
+    #company_logo: org-x
     location: Saint-Etienne, France
     date_start: '2021-04-01'
     date_end: '2021-08-31'
