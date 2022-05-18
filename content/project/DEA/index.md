@@ -16,10 +16,6 @@ sutitle: A Novel Autoencoder for anomaly segementation
 # </style>
 <script src="https://mickael.canouil.fr/post/floating-toc-in-blogdown/index.en_files/header-attrs/header-attrs.js"></script>
 <div id="TOC">
-				<figure>
-					<img src="dea.png" width="650" />
-					<figcaption>Figure 1: DEA Architecture</figcaption>
-				</figure>
 				<p>
 					A Detector-Encoder Autoencoder, has two parts (Figure 1) - (1) the detection part in the front,
 					$\Phi(F_{d}(x))$, where $F_{d}$ corresponds to an encoding function performing RoI detection
