@@ -47,5 +47,5 @@ Hello, My name is Mohammad Sadil Khan. I am currently pursuing Masters in Machin
 
 My research Interest is in Computer Vision, Generative Models, Deep Learnig and Explainable AI.
 
-I will join Creatis Lab, INSA Lyon on February 2022 till July 2022 for my Master Thesis on the topic Learning Shapes For The Effective Segmentation of 3D Medical Images using Point Cloud. I worked as a research intern in Laboratoire Hubert Curien at Saint-Etienne, France on the topic of Detector-Encoder Autoencoder for anomaly segmentation of 18th Century Ornaments under the supervision of Professor Ŕemi Emonet and Professor Thierry Fournel.
+I am currenly working in Creatis Lab, INSA Lyon on February 2022 till July 2022 for my Master Thesis on the topic Learning Shapes For The Effective Segmentation of 3D Medical Images using Point Cloud. I worked as a research intern in Laboratoire Hubert Curien at Saint-Etienne, France on the topic of Detector-Encoder Autoencoder for anomaly segmentation of 18th Century Ornaments under the supervision of Professor Ŕemi Emonet and Professor Thierry Fournel.
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
