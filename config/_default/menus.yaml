@@ -11,13 +11,13 @@ main:
     url: '#experience'
     weight: 20
   - name: Projects
-    url: 'project/'
+    url: '#projects'
     weight: 30
   - name: Blogs
-    url: 'blog/'
+    url: '#blogs'
     weight: 40
   - name: Publications
-    url: 'publication/'
+    url: '#publications'
     weight: 50
   - name: Contact
     url: '#contact'
