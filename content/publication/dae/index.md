@@ -19,7 +19,7 @@ featured: true
 #   focal_point: ""
 #   preview_only: false
 # projects:
-# - dae
+# - 
 publication: In *HAL*
 publication_short: HAL
 publication_types:
@@ -28,7 +28,7 @@ publishDate: "2021-10-01T00:00:00Z"
 # slides: example
 # summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus
 #   ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
-tags: [anomaly, autoencoder, detector, SSD, deep learning, image reconstruction]
+tags: [Anomaly, Autoencoder, Object Detection, SSD, Deep Learning, Image Reconstruction, Computer Vision]
 title: Vignette detection and reconstruction of composed ornaments with a strengthened autoencoder
 url_code: ""
 url_dataset: ""
