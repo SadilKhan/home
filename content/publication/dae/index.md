@@ -31,7 +31,7 @@ tags: [anomaly, autoencoder, detector, SSD, deep learning, image reconstruction]
 title: Vignette detection and reconstruction of composed ornaments with a strengthened autoencoder
 url_code: ""
 url_dataset: ""
-url_pdf: ""
+url_pdf: "https://hal.archives-ouvertes.fr/hal-03409930/"
 url_poster: ""
 url_project: ""
 url_slides: ""
