@@ -1,6 +1,6 @@
 ---
-title: Projects
-summary: Here I list all my projects
+title: Blogs
+summary: Here I list all my blogs
 date: "2022-06-28T00:00:00Z"
 
 reading_time: false  # Show estimated reading time?
@@ -12,4 +12,10 @@ comments: false  # Show comments?
 header:
   caption: ""
   image: ""
+content:
+  filters:
+    folders:
+      - blog
+
 ---
+
