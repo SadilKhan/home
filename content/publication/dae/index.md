@@ -19,7 +19,7 @@ featured: true
 #   focal_point: ""
 #   preview_only: false
 # projects:
-# - 
+#  - "content/projects/DEA/index.md"
 publication: In *HAL*
 publication_short: HAL
 publication_types:
@@ -32,7 +32,7 @@ tags: [Anomaly, Autoencoder, Object Detection, SSD, Deep Learning, Image Reconst
 title: Vignette detection and reconstruction of composed ornaments with a strengthened autoencoder
 url_code: ""
 url_dataset: ""
-url_pdf: "publication/dae/paper.pdf"
+url_pdf: "https://hal.archives-ouvertes.fr/hal-03409930/document"
 url_poster: ""
 url_project: ""
 url_slides: ""
