@@ -1,7 +1,7 @@
 ---
-title: Projects
+title: Blogs
 summary: Here we describe how to add a page to your site.
-date: "2018-06-28T00:00:00Z"
+date: "2022-06-23T00:00:00Z"
 
 reading_time: false  # Show estimated reading time?
 share: false  # Show social sharing links?
@@ -13,3 +13,4 @@ header:
   caption: ""
   image: ""
 ---
+
