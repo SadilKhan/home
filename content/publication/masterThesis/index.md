@@ -42,8 +42,6 @@ publication_types:
 - "7"
 publishDate: "2022-06-30T00:00:00Z"
 # slides: example
-# summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus
-#   ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
 tags: [Image Segmentation, Deep Learning, 3D Computer Vision, Point Cloud]
 title: "Learning Shapes for the Efficient Segmentation of 3D Medical Images using Point Cloud"
 url_code: ""
