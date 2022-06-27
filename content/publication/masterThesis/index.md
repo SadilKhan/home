@@ -49,7 +49,7 @@ url_dataset: ""
 url_pdf: "publication/masterThesis/report.pdf"
 url_poster: ""
 url_project: ""
-url_slides: ""
+url_slides: "slides.pdf"
 url_source: ""
 url_video: ""
 ---
