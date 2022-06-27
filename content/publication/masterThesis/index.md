@@ -46,7 +46,7 @@ tags: [Image Segmentation, Deep Learning, 3D Computer Vision, Point Cloud]
 title: Learning Shapes for Efficient Segmentation of 3D Medical Images using Point Cloud
 url_code: ""
 url_dataset: ""
-url_pdf: "publication/master_thesis/report.pdf"
+url_pdf: "publication/masterThesis/report.pdf"
 url_poster: ""
 url_project: ""
 url_slides: ""
