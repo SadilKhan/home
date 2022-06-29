@@ -76,9 +76,9 @@ features:
     gravatar: false
     shape: circle
   comment:
-    provider: ''
+    provider: 'disqus'
     disqus:
-      shortname: ''
+      shortname: "http://disqus.com/by/mdsadilkhan"
       show_count: true
     commento:
       url: ''
