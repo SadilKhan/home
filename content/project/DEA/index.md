@@ -9,6 +9,9 @@ tags:
 title: Detector-Encoder AutoEncoder
 sutitle: A Novel Autoencoder for anomaly segementation
 commentable: true
+show_related: true
+share: false
+
 ---
 # <style>
 # section {

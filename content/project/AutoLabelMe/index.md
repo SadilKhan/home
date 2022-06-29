@@ -9,6 +9,8 @@ tags:
 title: AutoLabelMe
 sutitle: Open Source Image Annotator in Python
 commentable: true
+show_related: true
+share: false
 ---
 # <style>
 # section {
