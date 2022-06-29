@@ -78,7 +78,7 @@ features:
   comment:
     provider: 'disqus'
     disqus:
-      shortname: "http://disqus.com/by/mdsadilkhan"
+      shortname: "https-sadilkhan-netlify-app"
       show_count: true
     commento:
       url: ''
