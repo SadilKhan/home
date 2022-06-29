@@ -8,6 +8,7 @@ tags:
 - Object Detection
 title: AutoLabelMe
 sutitle: Open Source Image Annotator in Python
+commentable: true
 ---
 # <style>
 # section {

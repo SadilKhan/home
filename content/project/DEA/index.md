@@ -8,6 +8,7 @@ tags:
 - Object Detection
 title: Detector-Encoder AutoEncoder
 sutitle: A Novel Autoencoder for anomaly segementation
+commentable: true
 ---
 # <style>
 # section {
