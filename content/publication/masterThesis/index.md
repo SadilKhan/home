@@ -52,4 +52,6 @@ url_project: ""
 url_slides: "slides.pdf"
 url_source: ""
 url_video: ""
+commentable: true
+show_related: true
 ---

@@ -20,7 +20,8 @@ url_code: ""
 url_pdf: ""
 url_slides: ""
 url_video: ""
-
+commentable: true
+show_related: true
 ---
 
 <script src="https://mickael.canouil.fr/post/floating-toc-in-blogdown/index.en_files/header-attrs/header-attrs.js"></script>

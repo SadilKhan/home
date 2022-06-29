@@ -14,9 +14,10 @@ url_code: ""
 url_pdf: ""
 url_slides: ""
 url_video: ""
-
+share: false
+commentable: true
+show_related: true
 ---
-
 <script src="https://mickael.canouil.fr/post/floating-toc-in-blogdown/index.en_files/header-attrs/header-attrs.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <div id="TOC">
@@ -25,8 +26,7 @@ url_video: ""
 				</li>
 				<li><a href="#Second_Point_Header">2. RandLaNet - Architecture</a></li>
 				<li><a href="#Third_Point_Header">3. RandLaNet - LFA</a></li>
-				<li><a href="#Fourth_Point_Header">4. RandLaNet - Decoder</a></li>
-				<li><a href="#Fifth_Point_Header">5. Results</a></li>
+				<li><a href="#Fourth_Point_Header">4. Conclusion</a></li>
 </ul>
 </div>
 <div> 
@@ -44,19 +44,14 @@ url_video: ""
   <p>
  <ul>
     <li> $\textit{Unordered:}$ Unlike images or arrays, point cloud is unordered. It has no restriction to be confined within a boundary. This causes a problem for CNN type architecture to learn since CNN uses convolutional operations which requires ordered and regular array like representation of the input. Point cloud networks are generally invariant to the $N!$ number of permutations in input.</li>
-   <li> $\textit{Irregularity:}$ Points are not sampled uniformly from an image which means different organs can have dense points while others sparse [1, 2]. This causes class imbalance problems in point cloud dataset.</li>
-    <li> $\textit{Connectedness:}$ Since points are not connected like graph structure and neighbouring points contain meaningful spatial and geometry information of the organ, networks must learn to pass information from points to points.</li>
+   <li> $\textit{Irregularity:}$ Points are not sampled uniformly from an image which means different objects can have dense points while others sparse [1, 2]. This sometimes causes class imbalance problems in point cloud dataset.</li>
+    <li> $\textit{Connectedness:}$ Since points are not connected like graph structure and neighbouring points contain meaningful spatial and geometry information of the object, networks must learn to pass information from points to points.</li>
 </ul>
   </p>
   
   <h1 id="Second_Point_Header">2. RandLaNet - Architecture</h1>
   <p>
-  Large-scale point cloud segmentation is a challenging task because of huge computational requirements and effective embedding learning. RandLa-Net[3] is an efficient and lightweight neural architecture that segments every point in large-scale point clouds. It is an encoder-decoder-like architecture that uses random sampling to downsample the input point cloud in the encoder and upsample the point cloud in decoder blocks. It uses random sampling compared to other sampling methods because of faster computation. Although random sampling can discard key points necessary for efficient point cloud segmentation, RandLa-Net implements attention-based local feature aggregation to effectively share features of points that are removed into the neighbor points. Figure[1] is the architecture of RandLa-Net. The main properties of RandLa-Net are <ul>
-  <li>It is lightweight and achieves state-of-the-art results compared to existing methods. The random sampling method reduces the computation.</li>
-  <li> The proposed attention-based Local Feature Aggregation (LFA) can expand into larger receptive fields using Local Spatial Encoding (LSE) with attentive pooling of point and neighbor features.</li> 
-  <li> The network consists of Shared MLP without any need of graph reconstruction or voxelization. </li>
-  <li> The encoder-decoder architecture with downsampling aims to generate discriminative latent vectors using small samples which represent the objects of interest. </li>
-  </ul>
+  Large-scale point cloud segmentation is a challenging task because of huge computational requirements and effective embedding learning. RandLa-Net[3] is an efficient and lightweight neural architecture that segments every point in large-scale point clouds. It is an encoder-decoder-like architecture that uses random sampling to downsample the input point cloud in the encoder and upsample the point cloud in decoder blocks. It uses random sampling compared to other sampling methods because of faster computation. Although random sampling can discard key points necessary for efficient point cloud segmentation, RandLa-Net implements attention-based local feature aggregation to effectively share features of points that are removed into the neighbor points. Figure[1] is the architecture of RandLa-Net. 
   <figure>
 					<center><img src="randlanet_architecture.png" width="800" /> </center>
 					<figcaption class="figure-caption text-center">Figure 1:  RandLa-Net Architecture.  FC is the fully connected layer, LFA is the localfeature aggregation, RS is random sampling, MLP is shared multilayer perceptron,US is upsampling and DP is dropout.  (Image from [3])
@@ -100,12 +95,80 @@ url_video: ""
 					<figcaption class="figure-caption text-center">Figure 3: RandLaNet Feature Sharing
 					</figcaption>
 	</figure>
-	 Let's take a overview of how this happens before diving deep into it. 
+	 Let's take an overview of how this happens before diving deep into it. 
    <ul>
   <li>$\textbf{1. Sampling:}$ The first step in message passing system is from which points we want to pass a message to the red point $p$ in Figure 3. K-Nearest Neighbor is used to find $K$ neighbor points (blue points) which will share its features with red point $p$.</li>
   <li> $\textbf{2. Message Generation:}$ Once we choose the points, we need to generate the message to send from blue points to red point. For every point, $p_i$, we will generate a message $f_i$ by incorporating the distance and spatial information using an MLP. This MLP will give us the desired dimension of feature vector for $f_i,\forall i=1,2,\cdots,K$.</li>
   <li> $\textbf{3. Message Passing:}$ There are several ways to share features from neighbor points. We can use MAX, AVG or SUM function. But the best method is use linear sum of the features $f=\sum\limits_{i=1}^{6}\alpha_if_i$, with $\alpha_i$ as learnable by the model. This $\alpha_i$ is the attention score. It makes sure to give more weights during aggregation to points of similar nature or belonging to the same object.
   </li>
+  </ul>
+  <figure>
+					<center><img src="randlanet_lfav2.png" width="800" /> </center>
+					<figcaption class="figure-caption text-center">Figure 4: LFA Module
+					</figcaption>
+	</figure>
+	Figure 4 is the detailed view of LFA module. It consists of three neural units (1) Local Spatial Encoding(LocSE) (2) Attentive Pooling (3) Dilated Residual Block.
+  </p>
+  <p>$\textbf{A. Local Spatial Encoding}$</p>
+  <p>
+  Let $P=\{p_1,p_2,\cdots,p_n\},p_i \in \mathbb{R}^3 \text{ and } F=\{f_1,f_2,\cdots,f_n\}, f_i \in R^d$ be the point set and feature set accordingly. LSE units embed the features and the spatial information from the neighbourhood points. This helps the network learn the complex local geometrical structures with as increasing receptive field.
+For every point $p_i$, first K-Nearest Algorithm is used for finding $K$ neighbor points. Let the set of neighbor points, $N(p_i)=\{p_1^{(i)},p_2^{(i)},\cdots,p_K^{(i)}\}$ and the set of features for the neighbor points be $N(f_i)=\{f_1^{(i)},f_2^{(i)},\cdots,f_K^{(i)}\}$. At first positional features for every point in $N(p_i)$ is encoded as follows. (Figure 4)
+\begin{equation}
+    r_k^{(i)}=MLP\bigg(p_i;p_k^{(i)};(p_i-p_k^{(i)});||p_i-p_k^{(i)}||\bigg), r_k^{(i)} \in \mathbb{R}^r
+\end{equation}
+$;$ is the concatenation layer and $||\cdot||$ is the $l_2$ distance between neighbor and center points. $r_k^{(i)}$ not only just concatenates two positions but also the effect of one point on another point in terms of distance is also added. Once $r_k^{(i)} ,\forall k=1,2,\cdots,K$ is computed it is concatenated with corresponding features in $N(f_i)$.
+$\hat{F}=\{\hat{F}_1,\hat{F}_2,\cdots,\hat{F}_i\},\hat{F_i}=\{\hat{f}_k^{(i)}\}_{k=1}^{k=K},
+\hat{f}_k^{(i)}=\{r_k^{(i)};f_k^{(i)}\}$.
+  </p>
+  <p>
+  $\textbf{B Attentive Pooling}$</p>
+  <p>
+Attentive pooling aggregates the set of neighboring point features $\hat{F}$ with adaptive weights. Existing methods use mean or max pooling, resulting in the loss of important information. Attention mechanism will automatically learn important features. Given $\hat{F_i}=\{\hat{f}_1^{(i)},\cdots,\hat{f}_k^{(i)}\}$, first attention scores are computed using a shared MLP, $g$ such that
+\begin{equation}
+    s_k^{(i)}=g(\hat{f}_k^{(i)},W)
+\end{equation}
+where $W$ is the weight of the MLP. After learning the attention scores feature for point $p_i$, $f_i$ is updated with concatenated neighbor features. (Figure 4)
+\begin{equation}
+    \hat{f}_i=MLP(\sum\limits_{k=1}^{K}(\hat{f}_k^{(i)} \odot s_k^{(i)}))
+\end{equation}
+Together with LSE and Attentive pooling, the model learns informative features with geometric patterns for point $p_i$.
+  </p>
+  <p>
+  $\textbf{C.3 Dilated Residual Block}$
+  </p>
+  <p>
+Since the point cloud is downsampled, it is necessary to expand the receptive field to preserve geometric details. Inspired by Resnet architecture, the author stacks several LSE and attentive pooling in one block before downsampling. In Figure 6, the red points observe $K$ features from neighboring points after the first LSE and Attentive Pooling layer and then in the next step it learns from $K^2$ features (See Figure 5). However, the more layers are added, the more the model is likely to be over-fitted. In the original paper (Figure 5), only two layers of LSE and Attentive pooling are used.
+<figure>
+					<center><img src="randlanet_drb.png" width="800" /> </center>
+					<figcaption class="figure-caption text-center">Figure 5: Dilated Residual Block
+					</figcaption>
+	</figure>
+  
+  <figure>
+					<center><img src="randlanet_drb2.png" width="400" /> </center>
+					<figcaption class="figure-caption text-center">Figure 6: Illustration of dilated residual block which expands the receptive field at each step.
+					</figcaption>
+	</figure>
+  
+  </p>
+  <h1 id="Fourth_Point_Header">4. Conclusion</h1>
+  <p>$\textbf{Advantages:}$</p>
+  <p>
+The main advantages of RandLa-Net are 
+<ul>
+  <li>It is lightweight and achieves state-of-the-art results compared to existing methods. The random sampling method reduces the computation.</li>
+  <li> The proposed attention-based Local Feature Aggregation (LFA) can expand into larger receptive fields using Local Spatial Encoding (LSE) with attentive pooling of point and neighbor features.</li> 
+  <li> The network consists of Shared MLP without any need of graph reconstruction or voxelization. </li>
+  <li> The encoder-decoder architecture with downsampling aims to generate discriminative latent vectors using small samples which represent the objects of interest. </li>
+  </ul>
+  </p>
+  <p>$\textbf{Disadvantages:}$</p>
+  <p>
+  <ul>
+  <li>The random downsampling rate can influence the performance of the model. Reducing too many points will prevent the model from learning rich latent representations. </li>
+  <li> Even though RandLaNet input allows addition of other features such as intensity, gradient, etc, it fails to learn local geometrical information. It learns the average shape of the object which causes over-segmentation. For more information, <a href="/publication/masterThesis/report.pdf">Link</a>
+
+</li> 
   </ul>
   
   </p>
@@ -125,3 +188,4 @@ url_video: ""
       </ol>
 
 </div>
+
