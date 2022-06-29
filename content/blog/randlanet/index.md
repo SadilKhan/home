@@ -166,7 +166,7 @@ The main advantages of RandLa-Net are
   <p>
   <ul>
   <li>The random downsampling rate can influence the performance of the model. Reducing too many points will prevent the model from learning rich latent representations. </li>
-  <li> Even though RandLaNet input allows addition of other features such as intensity, gradient, etc, it fails to learn local geometrical information. It learns the average shape of the object which causes over-segmentation. For more information, <a href="/publication/masterThesis/report.pdf">Link</a>
+  <li> Even though RandLaNet input allows addition of other features such as intensity, gradient, etc, it fails to learn local geometrical information. It learns the average shape of the object which causes over-segmentation. For more information, <a href="/publication/masterThesis/report.pdf">Thesis Report.</a> ( Look at the Modified RandLa-Net with Feature Extractor and Voxel Segmentation Results)
 
 </li> 
   </ul>
