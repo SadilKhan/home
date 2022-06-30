@@ -30,7 +30,7 @@ experience:
     date_start: '2022-02-07'
     date_end: ''
     description: |2-
-        __Project__ : [Learning Shapes For The Effective Segmentation of 3D Medical Images.](/content/publication/masterThesis)
+        __Project__ : [Learning Shapes For The Effective Segmentation of 3D Medical Images.](/publication/masterThesis)
         * Developed a novel approach to perform 3d Image Segmentation using point clouds.
         * Modified RandLaNet, an attention-based point cloud segmentation network, with a Feature Extraction Layer to learn local spatial information.
         * Developed a model-independent step to use the trained RandLaNet to perform 3d Image Segmentation.
