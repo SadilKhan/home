@@ -44,7 +44,7 @@ experience:
     date_start: '2021-04-01'
     date_end: '2021-08-31'
     description: |2-
-        __Project__ : Detector-Encoder Autoencoders for unsupervised decomposition into visual parts.
+        __Project__ : [Detector-Encoder Autoencoders for unsupervised decomposition into visual parts.](/publication/dae)
           
         * Developed DEA (Detector-Encoder AutoEncoder), a novel autoencoder for anomaly segmentation. 
         * Optimized SSD Detector with GIOU loss. 
