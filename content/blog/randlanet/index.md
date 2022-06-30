@@ -121,7 +121,7 @@ $\hat{F}=\{\hat{F}_1,\hat{F}_2,\cdots,\hat{F}_i\},\hat{F_i}=\{\hat{f}_k^{(i)}\}_
 \hat{f}_k^{(i)}=\{r_k^{(i)};f_k^{(i)}\}$.
   </p>
   <p>
-  $\textbf{B Attentive Pooling}$</p>
+  $\textbf{B. Attentive Pooling}$</p>
   <p>
 Attentive pooling aggregates the set of neighboring point features $\hat{F}$ with adaptive weights. Existing methods use mean or max pooling, resulting in the loss of important information. Attention mechanism will automatically learn important features. Given $\hat{F_i}=\{\hat{f}_1^{(i)},\cdots,\hat{f}_k^{(i)}\}$, first attention scores are computed using a shared MLP, $g$ such that
 \begin{equation}
@@ -134,7 +134,7 @@ where $W$ is the weight of the MLP. After learning the attention scores feature 
 Together with LSE and Attentive pooling, the model learns informative features with geometric patterns for point $p_i$.
   </p>
   <p>
-  $\textbf{C.3 Dilated Residual Block}$
+  $\textbf{C. Dilated Residual Block}$
   </p>
   <p>
 Since the point cloud is downsampled, it is necessary to expand the receptive field to preserve geometric details. Inspired by Resnet architecture, the author stacks several LSE and attentive pooling in one block before downsampling. In Figure 6, the red points observe $K$ features from neighboring points after the first LSE and Attentive Pooling layer and then in the next step it learns from $K^2$ features (See Figure 5). However, the more layers are added, the more the model is likely to be over-fitted. In the original paper (Figure 5), only two layers of LSE and Attentive pooling are used.
