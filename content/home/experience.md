@@ -31,6 +31,9 @@ experience:
     date_end: ''
     description: |2-
         __Project__ : Learning Shapes For The Effective Segmentation of 3D Medical Images.
+        * Developed a novel approach to perform 3d Image Segmentation using point clouds.
+        * Modified RandLaNet, an attention-based point cloud segmentation network, with a Feature Extraction Layer to learn local spatial information.
+        * Developed a model-independent step to use the trained RandLaNet to perform 3d Image Segmentation.
         
 
   - title: Research Intern
