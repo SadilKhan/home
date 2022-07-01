@@ -6,8 +6,9 @@ tags:
 - Deep Learning
 - Point Cloud
 - Segmentation
-- Encoder
-- Decoder
+- Graph 
+- Voxel
+- MLP
 title: Point Cloud
 sutitle: Introduction to Point Cloud
 url_code: ""
