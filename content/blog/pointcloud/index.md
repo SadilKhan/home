@@ -20,13 +20,6 @@ commentable: true
 show_related: true
 ---
 
-<style>
-/* visited link */
-a:visited {
-  color: hotpink;
-}
-</style>
-
 <script src="https://mickael.canouil.fr/post/floating-toc-in-blogdown/index.en_files/header-attrs/header-attrs.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <div id="TOC">
@@ -75,6 +68,7 @@ Point Cloud Sampling is the method of choosing a subset of point clouds. Samplin
     <li> $\textit{Generator Based Sampling:}$ Generator Based Sampling(GS) learns to generate a small subset of point clouds from the original point cloud. For a point cloud set $P$ and a task $T$, GS tries to find $S \subset P$ by minimizing the objective function $f$ such that $S^*=argmin_{S}(f(T(S))$. It is an end-to-end trainable model. But at inference stage, it uses FPS to match subsets with original point cloud. It takes up to 20 minutes to sample 10\% of $10^6$ points.</li>
     <li> $\textit{Gumbel Subset Sampling:}$ Gumbel Subset Sampling[4] uses attention mechanism to choose a representative and task-specific subset of the point cloud. Given an input set $X_i \in \mathbb{R}^{N_i\times c}$, the task is to choose a suitable $X_{i+1} \in \mathbb{R}^{N_{i+1}\times c}, N_{i+1} \leq N_i$ and $X_{i+1}=y\cdot softmax(WX_i^T), W \in \mathbb{R}^{N_{i+1}\times N_i}$. It is completely end-to-end learnable and can be used in any segmentation network.</li>
 </ul>
+<h1 id="Third_Point_Header">2. Point Cloud Segmentation Methods</h1>
   
   <h1>Bibliography</h1>
       <ol>
