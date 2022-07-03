@@ -28,7 +28,14 @@ show_related: true
 				</li>
 				<li><a href="#Second_Point_Header">2. Point Cloud Generation Methods</a></li>
 				<li><a href="#Third_Point_Header">3. Point Cloud Sampling Methods</a></li>
-				<li><a href="#Fourth_Point_Header">4. Point Cloud Segmentation Networks</a></li>
+				<li><a href="#Fourth_Point_Header">4. Point Cloud Segmentation Networks</a>
+				<ul>
+				<li><a href="#Fourth_Point_Header_1">4.1 Edge Based Methods</a></li>
+				<li><a href="#Fourth_Point_Header_2">4.2 Region Based Methods</a></li>
+				<li><a href="#Fourth_Point_Header_3">4.3 Attribute Based Methods</a></li>
+				<li><a href="#Fourth_Point_Header_4">4.4 Deep Learning Based Methods</a></li>
+				</ul>
+				</li>
 				<li><a href="#Fifth_Point_Header">5. Point Cloud Aggregation Methods</a></li>
 
 </ul>
@@ -72,8 +79,8 @@ Point Cloud Sampling is the method of choosing a subset of point clouds. Samplin
 
 <p> Point Cloud Segmentation is the task for grouping objects or assigning labels to every points in the point cloud. It is one of the most challenging tasks and a research topic in deep learning since point clouds are noisy, unstructured and lack connectedness property. All the methods are categorized into four categories.
 
-<ol>
-<li>$\textbf{Edge Based Methods:}$ Edges describe the intrinsic characteristics of the boundary of any 3D object. Edge-based methods locate the points which have rapid changes in the neighborhood. Bhanu[1] proposed three approaches for detecting the edges of a 3D object. The first approach is calculating the gradient.
+<h1 id="Fourth_Point_Header_1">4.1 Edge Based Methods</h1>
+Edges describe the intrinsic characteristics of the boundary of any 3D object. Edge-based methods locate the points which have rapid changes in the neighborhood. Bhanu[1] proposed three approaches for detecting the edges of a 3D object. The first approach is calculating the gradient.
     Let $r(i,j)$ be the range value at $(i,j)$ position, the magnitude and the direction of edge can be calculated by
     \begin{equation}
     \begin{split}
@@ -84,9 +91,10 @@ Point Cloud Sampling is the method of choosing a subset of point clouds. Samplin
      \end{split}
      \end{equation}
      For flat surfaces these values are zero, positive when edges are convex and negative when edges are concave. The maximum magnitude of gradient is $\max m(i,j;\theta)$ and the direction of edge is $argmax_{\theta}$ $m(i,j;\theta)$. Using threshold, points can be segmented.
-    The second approach is fitting 3D lines to a set of points(i.e neighboring points) and detecting the changes in the unit direction vector from a point to the neighboring points. The third approach is a surface normal approach where changes in the normal vectors in the neighborhood of a point determine the edge point. Edge models are fast and interpretable but they are very sensitive to noise and sparse density of point clouds and lack generalization capability. Learning on incomplete point cloud structure with edge-based models does not give good accuracy. In Medical image datasets especially MRI data, the organ boundaries sometimes do not have high gradient points compared to CT data which means for every modality, we have to find new thresholds in edge-based methods. </li>
-
-<li>$\textbf{Region Based Methods}$ Region-based methods use the idea of neighborhood information to group points that are similar thus finding similarly grouped 3D objects and maximizing the dissimilarity between different objects. Compared to edge-based methods, these methods are not susceptible to noise and outliers but they suffer from inaccurate border segmentation. There are two types of region-based methods.
+    The second approach is fitting 3D lines to a set of points(i.e neighboring points) and detecting the changes in the unit direction vector from a point to the neighboring points. The third approach is a surface normal approach where changes in the normal vectors in the neighborhood of a point determine the edge point. Edge models are fast and interpretable but they are very sensitive to noise and sparse density of point clouds and lack generalization capability. Learning on incomplete point cloud structure with edge-based models does not give good accuracy. In Medical image datasets especially MRI data, the organ boundaries sometimes do not have high gradient points compared to CT data which means for every modality, we have to find new thresholds in edge-based methods.
+    
+<h1 id="Fourth_Point_Header_2">4.2 Region Based Methods</h1>
+Region-based methods use the idea of neighborhood information to group points that are similar thus finding similarly grouped 3D objects and maximizing the dissimilarity between different objects. Compared to edge-based methods, these methods are not susceptible to noise and outliers but they suffer from inaccurate border segmentation. There are two types of region-based methods.
 
 <ol type="A">
 <li>$\textit{Seeded-region Methods(bottom up):}$Seeded region segmentation is a fast, effective and very robust image segmentation method. It starts the segmentation process by choosing manually or automatically in preprocessing step, a set of seeds which can be a pixel or a set of pixels and then gradually adding neighbouring points if certain conditions satisfy regarding similarity[1,5]. The process finishes when every point belongs to a region. 
@@ -97,18 +105,15 @@ Point Cloud Sampling is the method of choosing a subset of point clouds. Samplin
         where $nbr(x)$ is the neighbourhood points of x. At each step if $nbr(x) \cap A_i \neq \phi$, then x is added into the region if certain conditions are met. One such condition can be checking the difference between intensity value of $x$ with the average intensity value of $A_i \forall A_i \text{ such that } nbr(x) \cap A_i \neq \phi$. The region with minimum difference is assigned to the point. There are another method when greyvalues of any point is approximated by fitting a line i.e if a coordinate of any pixel/point $p$ is $(x,y)$, then greyvalue of $p$, $G(p)=b+a_1x+a_2y+\epsilon$, where $\epsilon$ is the error term. The new homogeneity condition is to find the minimum distance between average approximated greyvalue and the approximated greyvalue of $x$.
         Seeded-based segmentation is very much dependent upon the choice of seed points. Inaccurate choices often lead to under-segmentation or over-segmentation. </li>
         <li> $\textit{Unseeded-region Methods(top-down):}$ Unlike seeded-based methods, unseeded methods have a top-down approach. The segmentation starts with grouping all the points into one region. Then the difference between all the mean point values and chosen point value is calculated. If it is more than the threshold then the point is kept otherwise the point is different than the rest of the points and a new region is created and the point is added into the new region and removed from the old region. The challenges are over-segmentation and domain-knowledge which is not present in complex scenes[1].</li>
+</ol>
+<h1 id="Fourth_Point_Header_3">4.3 Attribute Based Methods</h1>
+Attribute-based methods use the idea of clustering. The approach is to calculate attributes for points and then use a clustering algorithm to perform segmentation. The challenges in these methods are how to find a suitable attribute that contains the necessary information for segmentation and to define proper distance metrics. Some of the attributes can be normal vectors, distance, point density, or surface texture measures. It is a very robust method but performs poorly if points are large-scale and attributes are multidimensional.[1]
+
+<h1 id="Fourth_Point_Header_4">4.4 Deep Learning Based Methods</h1>
+The main challenge in point cloud segmentation is find good latent vector which can contain sufficient information for segmentation task. Deep Learning methods offers the best solution to learn good representations. Neural networks being a universal approximator can theoretically approximate the target function for segmentation. The following theorem justifies how MLPs can approximate the function for the segmentation task given enough neurons.
+<ol>
 
 </ol>
-
-
-</li>
-
-</ol>
-
-
-
-
-
 <p>
   
   <h1>Bibliography</h1>
