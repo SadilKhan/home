@@ -69,6 +69,47 @@ Point Cloud Sampling is the method of choosing a subset of point clouds. Samplin
     <li> $\textit{Gumbel Subset Sampling:}$ Gumbel Subset Sampling[4] uses attention mechanism to choose a representative and task-specific subset of the point cloud. Given an input set $X_i \in \mathbb{R}^{N_i\times c}$, the task is to choose a suitable $X_{i+1} \in \mathbb{R}^{N_{i+1}\times c}, N_{i+1} \leq N_i$ and $X_{i+1}=y\cdot softmax(WX_i^T), W \in \mathbb{R}^{N_{i+1}\times N_i}$. It is completely end-to-end learnable and can be used in any segmentation network.</li>
 </ul>
 <h1 id="Third_Point_Header">2. Point Cloud Segmentation Methods</h1>
+
+<p> Point Cloud Segmentation is the task for grouping objects or assigning labels to every points in the point cloud. It is one of the most challenging tasks and a research topic in deep learning since point clouds are noisy, unstructured and lack connectedness property. All the methods are categorized into four categories.
+
+<ol>
+<li>$\textbf{Edge Based Methods:}$ Edges describe the intrinsic characteristics of the boundary of any 3D object. Edge-based methods locate the points which have rapid changes in the neighborhood. Bhanu[1] proposed three approaches for detecting the edges of a 3D object. The first approach is calculating the gradient.
+    Let $r(i,j)$ be the range value at $(i,j)$ position, the magnitude and the direction of edge can be calculated by
+    \begin{equation}
+    \begin{split}
+         & m(i,j:0)=\frac{r(i,j-k)+r(i,j+k)-2r(i,j)}{2k}\\
+         & m(i,j;45)=\frac{r(i-k,j+k)+r(i+k,j-k)-2r(i,j)}{2k\sqrt2}\\
+         & m(i,j;90)=\frac{r(i-k,j)+r(i+k,j)-2r(i,j)}{2k}\\
+         & m(i,j;135)=\frac{r(i-k,j-k)+r(i+k,j+k)-2r(i,j)}{2k\sqrt2}
+     \end{split}
+     \end{equation}
+     For flat surfaces these values are zero, positive when edges are convex and negative when edges are concave. The maximum magnitude of gradient is $\max m(i,j;\theta)$ and the direction of edge is $argmax_{\theta}$ $m(i,j;\theta)$. Using threshold, points can be segmented.
+    The second approach is fitting 3D lines to a set of points(i.e neighboring points) and detecting the changes in the unit direction vector from a point to the neighboring points. The third approach is a surface normal approach where changes in the normal vectors in the neighborhood of a point determine the edge point. Edge models are fast and interpretable but they are very sensitive to noise and sparse density of point clouds and lack generalization capability. Learning on incomplete point cloud structure with edge-based models does not give good accuracy. In Medical image datasets especially MRI data, the organ boundaries sometimes do not have high gradient points compared to CT data which means for every modality, we have to find new thresholds in edge-based methods. </li>
+
+<li>$\textbf{Region Based Methods}$ Region-based methods use the idea of neighborhood information to group points that are similar thus finding similarly grouped 3D objects and maximizing the dissimilarity between different objects. Compared to edge-based methods, these methods are not susceptible to noise and outliers but they suffer from inaccurate border segmentation. There are two types of region-based methods.
+
+<ol type="A">
+<li>$\textit{Seeded-region Methods(bottom up):}$Seeded region segmentation is a fast, effective and very robust image segmentation method. It starts the segmentation process by choosing manually or automatically in preprocessing step, a set of seeds which can be a pixel or a set of pixels and then gradually adding neighbouring points if certain conditions satisfy regarding similarity[1,5]. The process finishes when every point belongs to a region. 
+        Suppose there are N seeds chosen initially. Let $A=\{A_1,A_2,\cdots,A_N\}$ be the set of seeds. Let T be the set of pixels that are not in any $A_i$ but is adjacent to at least a point in $A_i$.
+        \begin{equation}\nonumber
+            T = \bigg\{x\notin \bigcup_{i=1}^{i=N} A_i|nbr(x) \cap \bigcup_{i=1}^{i=N} A_i \neq \phi \bigg\}
+        \end{equation}
+        where $nbr(x)$ is the neighbourhood points of x. At each step if $nbr(x) \cap A_i \neq \phi$, then x is added into the region if certain conditions are met. One such condition can be checking the difference between intensity value of $x$ with the average intensity value of $A_i \forall A_i \text{ such that } nbr(x) \cap A_i \neq \phi$. The region with minimum difference is assigned to the point. There are another method when greyvalues of any point is approximated by fitting a line i.e if a coordinate of any pixel/point $p$ is $(x,y)$, then greyvalue of $p$, $G(p)=b+a_1x+a_2y+\epsilon$, where $\epsilon$ is the error term. The new homogeneity condition is to find the minimum distance between average approximated greyvalue and the approximated greyvalue of $x$.
+        Seeded-based segmentation is very much dependent upon the choice of seed points. Inaccurate choices often lead to under-segmentation or over-segmentation. </li>
+        <li> $\textit{Unseeded-region Methods(top-down):}$ Unlike seeded-based methods, unseeded methods have a top-down approach. The segmentation starts with grouping all the points into one region. Then the difference between all the mean point values and chosen point value is calculated. If it is more than the threshold then the point is kept otherwise the point is different than the rest of the points and a new region is created and the point is added into the new region and removed from the old region. The challenges are over-segmentation and domain-knowledge which is not present in complex scenes[1].</li>
+
+</ol>
+
+
+</li>
+
+</ol>
+
+
+
+
+
+<p>
   
   <h1>Bibliography</h1>
       <ol>
@@ -82,5 +123,9 @@ Point Cloud Sampling is the method of choosing a subset of point clouds. Samplin
             <p>Qingyong Hu, Bo Yang, Linhai Xie, Stefano Rosa, Yulan Guo, Zhihua Wang, A. Trigoni, A. Markham, <a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Hu_RandLA-Net_Efficient_Semantic_Segmentation_of_Large-Scale_Point_Clouds_CVPR_2020_paper.pdf"><i>RandLA-Net: Efficient Semantic Segmentation of Large-Scale Point Clouds</i></a>,  2020 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR).</p>
          </li>
          <li> <p>Jiancheng Yang, Qiang Zhang, Bingbing Ni, Linguo Li, Jinxian Liu, Mengdie Zhou, Qi Tian, <a href="https://arxiv.org/abs/1904.03375"><i>Modeling Point Clouds with Self-Attention and Gumbel Subset Sampling</i></a>, 2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 3318-3327. 10.1109/CVPR.2019.00344. 
+         </li>
+         <li>
+         <p>M. Fan.
+<a href="https://www.researchgate.net/profile/Minjie-Fan-2/publication/269338276_Variants_of_Seeded_Region_Growing/links/5487cd460cf268d28f0728a2/Variants-of-Seeded-Region-Growing.pdf?origin=publication_detail">Variants of Seeded Region Growing</a>. Image Processing, IET · June 2015</p>
          </li>
       </ol>
