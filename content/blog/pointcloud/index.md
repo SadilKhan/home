@@ -132,9 +132,15 @@ $\textbf{Theorem 1:}$ Given a set of point clouds $X=\{\{x_1,x_2,\cdots,x_n\},n\
      So $f$ can be approximated by a continuous($\gamma$) and a symmetric function($MAX$).In practice, $\gamma \text{ and } \eta$ can be approximated by MLP.</p>
   <p>The DL methods for point cloud segmentation can be divided into following ways.</p>
 <ol>
-<li>$\textit{Projection-Based Networks:}$Following the success of 2d CNNs, projection-based networks use the projection of 3D point clouds into 2d images from various views/angles. Then 2D CNN techniques are applied to it to learn feature representations and finally features are aggregated with multi-view information for final output\cite{mvcnn,survey3}. In \cite{tconv}, tangent convolutions are used. For every point, tangent planes are calculated and tangent convolutions are based on the projection of local surface geometry on the tangent plane. This gives a tangent image which is an $l\times l$ grid where 2d convolutions can be applied. Tangent images can be computed even on a large-scale point cloud with millions of points. Compared to voxel-based models, multi-view models perform better since 2D \ac{CNN} is a well-researched area and multi-view data contain richer information than 3D voxels even after losing depth information. The main challenges in multi-view methods are the choice of projection plane and the occlusion which can affect accuracy.</li>
+<li>$\textit{Projection-Based Networks:}$Following the success of 2d CNNs, projection-based networks use the projection of 3D point clouds into 2d images from various views/angles. Then 2D CNN techniques are applied to it to learn feature representations and finally features are aggregated with multi-view information for final output [7,8]. In [9], tangent convolutions are used. For every point, tangent planes are calculated and tangent convolutions are based on the projection of local surface geometry on the tangent plane. This gives a tangent image which is an $l\times l$ grid where 2d convolutions can be applied. Tangent images can be computed even on a large-scale point cloud with millions of points. Compared to voxel-based models, multi-view models perform better since 2D CNN is a well-researched area and multi-view data contain richer information than 3D voxels even after losing depth information. The main challenges in multi-view methods are the choice of projection plane and the occlusion which can affect accuracy.</li>
+<li>$\textit{Voxel-Based Networks:}$Voxel-based methods convert the 3D point clouds into voxel-based images. Figure [1] shows an example. The points which make up the point cloud are unstructured and unordered but CNN requires a regular grid for convolution operation. Voxelization is done in the following steps.
+<figure>
+					<center><img src="voxelization.png" width="500" /> </center>
+					<figcaption class="figure-caption text-center">Figure 1: Voxelization of a point cloud (Image from [10])
+					</figcaption>
+				</figure>
+</li>
 </ol>
-  
   <h1>Bibliography</h1>
       <ol>
          <li>
@@ -161,6 +167,24 @@ $\textbf{Theorem 1:}$ Given a set of point clouds $X=\{\{x_1,x_2,\cdots,x_n\},n\
          <p>
          Hang Su, Subhransu Maji ,Evangelos Kalogerakis, Erik Learned-Miller.
 <a href="https://ieeexplore.ieee.org/document/7410471">Multi-view Convolutional Neural Networks for 3D Shape Recognition<a>. 2015 IEEE International Conference on Computer Vision (ICCV), 2015, pp. 945-953
+         </p>
+         </li>
+         <li>
+         <p>
+         Saifullahi Aminu Bello , Shangshu Yu, Cheng Wang.
+<a href="https://arxiv.org/pdf/2001.06280.pdf">Review: deep learning on 3D point clouds</a>. Remote Sensing 12, No. 11:1729.
+         </p>
+         </li>
+         <li>
+         <p>
+         Maxim Tatarchenko, Jaesik Park, Vladlen Koltun, Qian-Yi Zhou.
+<a href="https://arxiv.org/pdf/1807.02443.pdf">Tangent Convolutions for Dense Prediction in 3D</a>. 2018 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)
+         </p>
+         </li>
+         <li>
+         <p>
+         Zhijian Liu, Haotian Tang, Yujun Lin, Song Han.
+<a href="https://proceedings.neurips.cc/paper/2019/file/5737034557ef5b8c02c0e46513b98f90-Paper.pdf">Point-Voxel CNN for Efficient 3D Deep Learning</a>. Proceedings of the 33rd International Conference on Neural Information Processing Systems 2019.
          </p>
          </li>
       </ol>
