@@ -19,9 +19,9 @@ share: false
 commentable: true
 show_related: true
 ---
-
 <script src="https://mickael.canouil.fr/post/floating-toc-in-blogdown/index.en_files/header-attrs/header-attrs.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+
 <div id="TOC">
 <ul>
 <li><a href="#First_Point_Header">1. Introduction</a>
@@ -113,33 +113,27 @@ Attribute-based methods use the idea of clustering. The approach is to calculate
 The main challenge in point cloud segmentation is find good latent vector which can contain sufficient information for segmentation task. Deep Learning methods offers the best solution to learn good representations. Neural networks being a universal approximator can theoretically approximate the target function for segmentation. The following theorem justifies how MLPs can approximate the function for the segmentation task given enough neurons.</p>
 <p>
 $\textbf{Theorem 1:}$ Given a set of point clouds $X=\{\{x_1,x_2,\cdots,x_n\},n\in \mathbb{Z}^+,x_i \in [0,1]^m\} $, let $f:X \rightarrow R$ be a continuous function with respect to hausdorff distance($d_H(\cdot,\cdot)$).$\forall \epsilon > 0, \exists \eta,$ a continuous function and a symmetric set function $g(x_1,x_2,\cdots x_n)=\gamma \circ MAX$ such that $\forall S\subset X$.
-     \begin{equation}\nonumber
-         \bigg|f(S)-\gamma \bigg(\underset{x_i \in S}{MAX}(\eta(x_i)) \bigg) \bigg|<\epsilon
-     \end{equation}
+     <img src="https://latex.codecogs.com/svg.image?\bigg|f(S)-\gamma&space;&space;\bigg(\underset{x_i&space;\in&space;S}{MAX}(\eta(x_i))&space;\bigg)&space;\bigg|<\epsilon&space;&space;&space;&space;&space;" title="https://latex.codecogs.com/svg.image?\bigg|f(S)-\gamma \bigg(\underset{x_i \in S}{MAX}(\eta(x_i)) \bigg) \bigg|<\epsilon " />
      $\gamma$ is a continuous function and $MAX$ is an elementwise max operation which takes an input $k$ number of vectors and return a vector with element wise maximum. In practice $\gamma \text{ and } \eta$ are MLP[6].</p>
      <p>
      $\textbf{Proof:}$ The hausdorff distance is defined by
-     \begin{equation}
-         d_H(x,y)=\max\bigg\{\sup\limits_{x\in X}(\inf\limits_{y\in Y} d(x,y)), \sup\limits_{y\in Y}(\inf\limits_{x\in X} d(x,y))\bigg\}
-     \end{equation}
+     <img src="https://latex.codecogs.com/svg.image?d_H(x,y)=\max\bigg\{\sup\limits_{x\in&space;X}(\inf\limits_{y\in&space;Y}&space;d(x,y)),&space;\sup\limits_{y\in&space;Y}(\inf\limits_{x\in&space;X}&space;d(x,y))\bigg\}" title="https://latex.codecogs.com/svg.image?d_H(x,y)=\max\bigg\{\sup\limits_{x\in X}(\inf\limits_{y\in Y} d(x,y)), \sup\limits_{y\in Y}(\inf\limits_{x\in X} d(x,y))\bigg\}" />
      Since $f$ is a continuous function from $Y$ to $R$ w.r.t hausdorff distance, so by definition of continuity $\forall \epsilon > 0, \exists \delta_{\epsilon} > 0 $ such that if $S_1,S_2 \subset X$ and $d_H(S_1,S_2)<\delta_{\epsilon}$, then $|f(S_1)-f(S_2)|<\epsilon$.
      Let $K=\lceil {\frac{1}{\delta_\epsilon}}\rceil, K\in \mathbb{Z}^+$. So $[0,1]$ is evenly divided into K intervals. Let $\sigma(x)$ be defined by 
-     \begin{equation}\nonumber
-             \sigma(x) =\frac{\lfloor{Kx}\rfloor}{K}, x \in S
-     \end{equation}
-     So $\sigma$ maps a point to the left side of the interval it belongs to and $$|x-\frac{\lfloor{Kx}\rfloor}{K}|=\frac{Kx-\lfloor{Kx}\rfloor}{K}<1/K\leq \delta_\epsilon$$.
-     Let $\tilde{S}={\sigma(x)},x\in S$, then $$|f(S) - f(\tilde{S})|<\epsilon$$, since $d_H(S,\tilde{S})\leq \delta_\epsilon$.
-     Let $\eta_k(x)=e^{-d(x,[\frac{k-1}{k},\frac{k}{K}])}$ be the indicator function where $d(x,I)$ is the point to set distance ($d(x,I)=\inf\limits_{y \in I}d(x,y)$). $d(x,I)=0$, if $x\in I$, so $\eta_k(x)=1 \text{ if } x \in [\frac{k-1}{k},\frac{k}{K}]$.
-     Let $\eta(x)=[\eta_1(x);\eta_2(x);\cdots;\eta_n(x)]$. Since there are K intervals we can define K functions $v_j:\mathbb{R}^n \rightarrow \mathbb{R}, \forall j=1,\cdots,K$ such that $$ v_j(x_1,x_2,x_3,\cdots,x_n)=\max\{\eta_j(x_1),\cdots,\eta_j(x_n)\}$$.
+     <img src="https://latex.codecogs.com/svg.image?\sigma(x)&space;=\frac{\lfloor{Kx}\rfloor}{K},&space;x&space;\in&space;S" title="https://latex.codecogs.com/svg.image?\sigma(x) =\frac{\lfloor{Kx}\rfloor}{K}, x \in S" />
+     So $\sigma$ maps a point to the left side of the interval it belongs to and <img src="https://latex.codecogs.com/svg.image?|x-\frac{\lfloor{Kx}\rfloor}{K}|=\frac{Kx-\lfloor{Kx}\rfloor}{K}<1/K\leq&space;\delta_\epsilon." title="https://latex.codecogs.com/svg.image?|x-\frac{\lfloor{Kx}\rfloor}{K}|=\frac{Kx-\lfloor{Kx}\rfloor}{K}<1/K\leq \delta_\epsilon." />
+     Let $\tilde{S}={\sigma(x)},x\in S$, then <img src="https://latex.codecogs.com/svg.image?|f(S)&space;-&space;f(\tilde{S})|<\epsilon" title="https://latex.codecogs.com/svg.image?|f(S) - f(\tilde{S})|<\epsilon" /> Since $d_H(S,\tilde{S})\leq \delta_\epsilon.$
+     Let $\eta_k(x)=e^{-d(x,[\frac{k-1}{k},\frac{k}{K}])}$ be the indicator function where $d(x,I)$ is the point to set distance <img src="https://latex.codecogs.com/svg.image?d(x,I)=\inf\limits_{y&space;\in&space;I}d(x,y)" title="https://latex.codecogs.com/svg.image?d(x,I)=\inf\limits_{y \in I}d(x,y)" /> $d(x,I)=0$, if $x\in I$, so $\eta_k(x)=1 \text{ if } x \in [\frac{k-1}{k},\frac{k}{K}].$
+     Let $\eta(x)=[\eta_1(x);\eta_2(x);\cdots;\eta_n(x)]$. Since there are K intervals we can define K functions $v_j:\mathbb{R}^n \rightarrow \mathbb{R}, \forall j=1,\cdots,K$ such that <img src="https://latex.codecogs.com/svg.image?\inline&space;v_j(x_1,x_2,x_3,\cdots,x_n)=\max\{\eta_j(x_1),\cdots,\eta_j(x_n)\}" title="https://latex.codecogs.com/svg.image?\inline v_j(x_1,x_2,x_3,\cdots,x_n)=\max\{\eta_j(x_1),\cdots,\eta_j(x_n)\}" />
      So $v_j$ denotes if any points from $S$ occupy the $jth$ interval. Let $v=[v_1;v_2,\cdots,;v_n]$. So $v:R^n\rightarrow [0,1]^K$.
-     Let $\tau:[0,1]^K \rightarrow X$ be defined by $$\tau(v(x_1,x_2,\cdots,x_n))=\bigg\{\frac{k-1}{K}: v_k \geq 1 \bigg\}$$
-     So $\tau$ denotes the lower bound of any interval if it contains any point from $S$. In this respect, $\tau(v) \equiv \tilde{S}$. Let $range(\tau(v))=S_{\tau}, d_H(S_{\tau},S)<\frac{1}{K} \leq \delta_{\epsilon}$.$$|f(\tau(v(x_1,x_2,\cdots,x_n)))-f(S)|<\epsilon $$
-     Let $\gamma:\mathbb{R}^K \rightarrow R$ be a continuous function such that $\gamma(v)=f(\tau(v))$.Now $$ \gamma(v(x_1,x_2,\cdots,x_n))=\gamma (MAX)(\eta(x_1),\cdots,\eta(x_n))$$.
-     So $f$ can be approximated by a continuous($\gamma$) and a symmetric function($MAX$).In practice, $\gamma \text{ and } \eta$ can be approximated by MLP.
+     Let $\tau:[0,1]^K \rightarrow X$ be defined by <img src="https://latex.codecogs.com/svg.image?\inline&space;\tau(v(x_1,x_2,\cdots,x_n))=\bigg\{\frac{k-1}{K}:&space;v_k&space;\geq&space;1&space;\bigg\}" title="https://latex.codecogs.com/svg.image?\inline \tau(v(x_1,x_2,\cdots,x_n))=\bigg\{\frac{k-1}{K}: v_k \geq 1 \bigg\}" />
+     So $\tau$ denotes the lower bound of any interval if it contains any point from $S$. In this respect, $\tau(v) \equiv \tilde{S}$. Let <img src="https://latex.codecogs.com/svg.image?range(\tau(v))=S_{\tau},&space;d_H(S_{\tau},S)<\frac{1}{K}&space;\leq&space;\delta_{\epsilon}\\|f(\tau(v(x_1,x_2,\cdots,x_n)))-f(S)|<\epsilon&space;" title="https://latex.codecogs.com/svg.image?range(\tau(v))=S_{\tau}, d_H(S_{\tau},S)<\frac{1}{K} \leq \delta_{\epsilon}\\|f(\tau(v(x_1,x_2,\cdots,x_n)))-f(S)|<\epsilon " />
+     Let $\gamma:\mathbb{R}^K \rightarrow R$ be a continuous function such that $\gamma(v)=f(\tau(v))$.Now <img src="https://latex.codecogs.com/svg.image?\gamma(v(x_1,x_2,\cdots,x_n))=\gamma&space;(MAX)(\eta(x_1),\cdots,\eta(x_n))" title="https://latex.codecogs.com/svg.image?\gamma(v(x_1,x_2,\cdots,x_n))=\gamma (MAX)(\eta(x_1),\cdots,\eta(x_n))" />
+     So $f$ can be approximated by a continuous($\gamma$) and a symmetric function($MAX$).In practice, $\gamma \text{ and } \eta$ can be approximated by MLP.</p>
+  <p>The DL methods for point cloud segmentation can be divided into following ways.</p>
 <ol>
-<li>$\textit{}$</li>
+<li>$\textit{Projection-Based Networks:}$Following the success of 2d CNNs, projection-based networks use the projection of 3D point clouds into 2d images from various views/angles. Then 2D CNN techniques are applied to it to learn feature representations and finally features are aggregated with multi-view information for final output\cite{mvcnn,survey3}. In \cite{tconv}, tangent convolutions are used. For every point, tangent planes are calculated and tangent convolutions are based on the projection of local surface geometry on the tangent plane. This gives a tangent image which is an $l\times l$ grid where 2d convolutions can be applied. Tangent images can be computed even on a large-scale point cloud with millions of points. Compared to voxel-based models, multi-view models perform better since 2D \ac{CNN} is a well-researched area and multi-view data contain richer information than 3D voxels even after losing depth information. The main challenges in multi-view methods are the choice of projection plane and the occlusion which can affect accuracy.</li>
 </ol>
-<p>
   
   <h1>Bibliography</h1>
       <ol>
@@ -162,5 +156,11 @@ $\textbf{Theorem 1:}$ Given a set of point clouds $X=\{\{x_1,x_2,\cdots,x_n\},n\
          <p>
          Charles R. Qi, Hao Su, Kaichun Mo, Leonidas J. Guibas.
          <a href="https://ieeexplore.ieee.org/document/8099499">PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation</a>, 2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2017, pp. 77-85.</p>
+         </li>
+         <li>
+         <p>
+         Hang Su, Subhransu Maji ,Evangelos Kalogerakis, Erik Learned-Miller.
+<a href="https://ieeexplore.ieee.org/document/7410471">Multi-view Convolutional Neural Networks for 3D Shape Recognition<a>. 2015 IEEE International Conference on Computer Vision (ICCV), 2015, pp. 945-953
+         </p>
          </li>
       </ol>
