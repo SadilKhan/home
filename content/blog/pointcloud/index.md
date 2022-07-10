@@ -155,6 +155,9 @@ The main challenge in point cloud segmentation is find good latent vector which 
 				</figure>
         After voxelization, 3D <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network">CNN</a>s can be applied for learning features for segmentation (3d UNet). In a similar approach, <i>Point-Voxel CNN</i> [<a href="#pvcnn" style="color:red">9</a>] uses <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network">CNN</a> and <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron">MLP</a> bases fusion learning. It first voxelizes the point cloud and uses convolution for feature learning and then devoxelize the voxels for voxel-to-point mapping(i.e interpolation is used to create distinct features of a voxel for the points that belong to the voxel). The features of a point cloud are then aggregated with the features learned using <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron">MLP</a>. Despite its remarkable advances in segmentation tasks in the medical domain in segmentation tasks, 3D CNNs have a lot of parameters and is computationally expensive. Reducing the input size causes the loss of important information. 3DCNN also requires a large number of training samples.
 </li>
+<li>
+<strong>Point-Based Networks:</strong> Point-Based Networks work on raw point cloud data. They do not require voxelization or projection. <a href="#pnet"" style="color:red">PointNet</a> is a breakthrough network that takes input as raw point clouds and outputs labels for every point. It uses permutation-invariant operations like pointwise MLP and symmetric layer, Max-Pooling layer for feature aggregation layer. It achieves state-of-the-art performance on benchmark datasets. But <a href="#pnet"" style="color:red">PointNet</a> lacks local dependency information and so it does not capture local information. The max-pooling layer captures the global structure and loses distinct local information. Inspired by <a href="#pnet"" style="color:red">PointNet</a> many new networks are proposed to learn local structure. <a href="#pnet++"" style="color:red">PointNet++</a> extends the <a href="#pnet"" style="color:red">PointNet</a> architecture with an addition of local structure learning method. The local structure information passing idea follows the three basic steps (1) Sampling (2) Grouping (3) Feature Aggregation Layer (Section 3.3.1.E lists some Feature Aggregation functions) to aggregate the information from the points in the nearest neighbors. <i> Sampling </i> is choosing $M$ centroids from $N$ points in a point cloud ($N>M$). Random Sampling or Farthest Point Sampling are two such methods for sampling centroids. <i>Grouping</i> refers to sample representative points for a centroid using KNN. It takes the input (1) set of points $N\times(d+C)$, with $N$ is the number of points,$d$ coordinates and $C$ feature dimension and (2) set of centroids $N_1\times d$. It outputs $N_1\times K \times (d+C)$ with $K$ is the number of neighbors. These points are grouped in a local patch. The points in the local patches are used for creating local feature representation for centroid points. These local patches work like receptive fields. <i>Feature Aggregation Layer</i> takes the feature of the points in the receptive field and aggregate them to output $N_1\times(d+C)$. This process is repeated in a hierarchical way reducing the number of points as it goes deeper. This hierarchical structure enables the network to be able to learn local structures with an expanding receptive field. Most of the research in this field has gone into developing an effective feature aggregation layer to capture local structures. <a href="#pweb"" style="color:red">PointWeb</a> creates a new module <i> Adaptive Feature Adjustment</i> to enhance the neighbor features by adding the information about the impact of features on centroid features and the relation between the points. It then combines the features and uses MLP to create new representations for centroid points. Despite their initial successes the following methods achieve higher performance due to their advanced local aggregation operators.
+</li>
 </ol>
   <h1>Bibliography</h1>
       <ol>
@@ -194,6 +197,18 @@ The main challenge in point cloud segmentation is find good latent vector which 
          <p id="pvcnn">
          Zhijian Liu, Haotian Tang, Yujun Lin, Song Han.
 <a href="https://proceedings.neurips.cc/paper/2019/file/5737034557ef5b8c02c0e46513b98f90-Paper.pdf">Point-Voxel CNN for Efficient 3D Deep Learning</a>. Proceedings of the 33rd International Conference on Neural Information Processing Systems 2019.
+         </p>
+         </li>
+         <li>
+         <p id="pnet++">
+         Charles R. Qi, Li (Eric) Yi, Hao Su, Leonidas J. Guibas 
+<a href="https://dl.acm.org/doi/10.5555/3295222.3295263">PointNet++: Deep Hierarchical Feature Learning on Point Sets in a Metric Space</a>. In Proceedings of the 31st International Conference on Neural Information Processing Systems (NIPS'17). Curran Associates Inc., Red Hook, NY, USA, 5105–5114.
+         </p>
+         </li>
+         <li>
+         <p id="pweb">
+         H. Zhao, L. Jiang, C. -W. Fu and J. Jia
+<a href="https://ieeexplore.ieee.org/document/8954075">PointWeb: Enhancing Local Neighborhood Features for Point Cloud Processing</a>. 2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2019, pp. 5560-5568, doi: 10.1109/CVPR.2019.00571.
          </p>
          </li>
       </ol>
