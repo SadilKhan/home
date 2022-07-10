@@ -153,7 +153,7 @@ The main challenge in point cloud segmentation is find good latent vector which 
 					<figcaption class="figure-caption text-center">Figure 2: Voxelization and memory footprint (Image from [<a href="#pvcnn" style="color:red">9</a>]))
 					</figcaption>
 				</figure>
-        After voxelization, 3D <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network">CNN</a>s can be applied for learning features for segmentation (3d UNet). In a similar approach, <i>Point-Voxel CNN</i> [<a href="#pvcnn" style="color:red">9</a>] uses <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network">CNN</a> and <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron">MLP</a> bases fusion learning. It first voxelizes the point cloud and uses convolution for feature learning and then devoxelize the voxels for voxel-to-point mapping(i.e interpolation is used to create distinct features of a voxel for the points that belong to the voxel). The features of a point cloud are then aggregated with the features learned using <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron">MLP</a>. Voxel-based networks for point cloud segmentation have the same challenges as mentioned in Section 3.2 3DCNN.
+        After voxelization, 3D <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network">CNN</a>s can be applied for learning features for segmentation (3d UNet). In a similar approach, <i>Point-Voxel CNN</i> [<a href="#pvcnn" style="color:red">9</a>] uses <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network">CNN</a> and <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron">MLP</a> bases fusion learning. It first voxelizes the point cloud and uses convolution for feature learning and then devoxelize the voxels for voxel-to-point mapping(i.e interpolation is used to create distinct features of a voxel for the points that belong to the voxel). The features of a point cloud are then aggregated with the features learned using <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron">MLP</a>. Despite its remarkable advances in segmentation tasks in the medical domain in segmentation tasks, 3D CNNs have a lot of parameters and is computationally expensive. Reducing the input size causes the loss of important information. 3DCNN also requires a large number of training samples.
 </li>
 </ol>
   <h1>Bibliography</h1>
@@ -180,8 +180,7 @@ The main challenge in point cloud segmentation is find good latent vector which 
          </p>
          </li>
          <li>
-         <p id="review1">
-         Saifullahi Aminu Bello , Shangshu Yu, Cheng Wang.
+         <p id="review1">Saifullahi Aminu Bello , Shangshu Yu, Cheng Wang.
 <a href="https://arxiv.org/pdf/2001.06280.pdf">Review: deep learning on 3D point clouds</a>. Remote Sensing 12, No. 11:1729.
          </p>
          </li>
